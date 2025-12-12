@@ -4,8 +4,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SearchExamplesGroup } from '../../models/search-example.model';
-import { SearchExamplesService } from '../../services/search-examples.service';
+import { SearchExamplesGroup } from '../../../models/search-example.model';
+import { SearchExamplesService } from '../../../services/search-examples.service';
 
 @Component({
   selector: 'app-search-examples',
