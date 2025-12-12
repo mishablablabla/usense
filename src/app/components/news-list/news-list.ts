@@ -12,7 +12,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { NewsService, Article } from '../../services/news.service';
 import { SearchExamples } from '../search-examples/search-examples';
-import { NewsCard } from '../news-card/news-card';
+import { NewsCard } from './news-card/news-card';
 
 @Component({
   selector: 'app-news-list',
