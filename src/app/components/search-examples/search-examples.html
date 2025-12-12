@@ -1,0 +1,35 @@
+<mat-accordion class="search-examples-accordion" multi>
+  @for (group of exampleGroups; track group.title) {
+  <mat-expansion-panel
+    [expanded]="group.expandedByDefault || false"
+    class="example-group"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="group-icon">{{ getGroupIcon(group) }}</mat-icon>
+        <span>{{ group.title }}</span>
+      </mat-panel-title>
+      <mat-panel-description *ngIf="group.description">
+        {{ group.description }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="examples-container">
+      @for (example of group.examples; track example.query) {
+      <mat-chip
+        class="example-chip"
+        (click)="selectExample(example.query)"
+        [title]="example.description"
+        [attr.data-type]="example.type"
+        selectable
+      >
+        @if (example.icon) {
+        <mat-icon class="chip-icon">{{ example.icon }}</mat-icon>
+        }
+        <span class="chip-description">{{ example.description }}</span>
+      </mat-chip>
+      }
+    </div>
+  </mat-expansion-panel>
+  }
+</mat-accordion>

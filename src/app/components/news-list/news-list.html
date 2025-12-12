@@ -1,0 +1,82 @@
+<div class="news-container">
+  <div class="search-section">
+    <mat-form-field class="search-field" appearance="outline">
+      <mat-label>Search news...</mat-label>
+      <input
+        matInput
+        [formControl]="searchControl"
+        placeholder='e.g., bitcoin, "climate change", AI AND robots'
+      />
+      <mat-icon matPrefix>search</mat-icon>
+      @if (searchControl.value) {
+      <button
+        matSuffix
+        mat-icon-button
+        (click)="clearSearch()"
+        aria-label="Clear"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+      <mat-hint
+        >Try: keywords, "exact phrase", AND/OR operators, +required
+        -excluded</mat-hint
+      >
+    </mat-form-field>
+
+    <app-search-examples
+      class="search-examples"
+      (exampleSelected)="onExampleSelected($event)"
+    ></app-search-examples>
+  </div>
+
+  <div class="categories-section">
+    <mat-chip-listbox aria-label="News categories" class="categories-chips">
+      @for (category of categories; track category.value) {
+      <mat-chip-option
+        [selected]="selectedCategory === category.value"
+        (click)="selectCategory(category.value)"
+      >
+        {{ category.label }}
+      </mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+
+  @if (loading) {
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading news...</p>
+  </div>
+  } @if (error && !loading) {
+  <div class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+  } @if (!loading && !error && articles.length > 0) {
+  <div class="news-grid">
+    @for (article of articles; track article.url) {
+    <app-news-card
+      [article]="article"
+      (cardClick)="openArticle($event)"
+    ></app-news-card>
+    }
+  </div>
+
+  @if (loadingMore) {
+  <div class="loading-more">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Loading more news...</p>
+  </div>
+  } @if (!hasMore && !loadingMore) {
+  <div class="end-message">
+    <mat-icon>done_all</mat-icon>
+    <p>You've reached the end of the news feed</p>
+  </div>
+  } } @if (!loading && !error && articles.length === 0) {
+  <div class="no-results">
+    <mat-icon>article</mat-icon>
+    <p>No news found. Try a different search or category.</p>
+  </div>
+  }
+</div>
